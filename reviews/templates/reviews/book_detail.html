@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+    <h1> Book Details</h1>
+    <li class="list-group-item">
+        <span class="text-info">Title: </span> <span>{{ selected_book.title }}</span><br>
+        <span class="text-info">Publisher: </span> <span>{{ selected_book.publisher }}</span><br>
+        <span class="text-info">Publication Date: </span> <span>{{ selected_book.publication_date }}</span><br>
+        <span class="text-info">Overal Rating: </span> <span>{{ rating }}</span><br>
+        <br>
+    <li class="list-group-item">
+        <h1> Review Cooments</h1>
+        {% for review in reviews %}
+            <li class="list-group-item">
+            <span class="text-info">Comment: </span> <span>{{ review.content }}</span><br>
+            <span class="text-info">Comment: </span> <span>{{ review.date_created }}</span><br>
+            <span class="text-info">Comment: </span> <span>{{ review.date_edited }}</span><br>
+            <span class="text-info">Comment: </span> <span>{{ review.rating }}</span><br>
+            <span class="text-info">Comment: </span> <span>{{ review.creator }}</span><br>
+        {% endfor %}
+
+
+
+
+{% endblock %}
+</body>
+<br>
+</html>

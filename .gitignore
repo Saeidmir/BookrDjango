@@ -1,0 +1,17 @@
+# dbs
+
+
+#pycharm
+.idea/
+.idea
+
+# Backup files #
+*.bak
+
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
