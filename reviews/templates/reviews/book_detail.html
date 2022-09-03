@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'reviews/base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,17 +14,23 @@
         <span class="text-info">Publication Date: </span> <span>{{ selected_book.publication_date }}</span><br>
         <span class="text-info">Overal Rating: </span> <span>{{ rating }}</span><br>
         <br>
-    <li class="list-group-item">
-        <h1> Review Cooments</h1>
-        {% for review in reviews %}
-            <li class="list-group-item">
+    </li>
+    <hr>
+    <h3> Review Comments</h3>
+    <ul>
+    {% for review in reviews %}
+           <li class="list-group-item">
             <span class="text-info">Comment: </span> <span>{{ review.content }}</span><br>
             <span class="text-info">Comment: </span> <span>{{ review.date_created }}</span><br>
             <span class="text-info">Comment: </span> <span>{{ review.date_edited }}</span><br>
             <span class="text-info">Comment: </span> <span>{{ review.rating }}</span><br>
             <span class="text-info">Comment: </span> <span>{{ review.creator }}</span><br>
+            <a href="{% url "review_edit" selected_book.pk review.pk %}">Edit Review</a>
         {% endfor %}
 
+    <form action="{% url "review_edit" selected_book.pk %}">
+        <input type="submit" class="btn btn-primary" value="Add Review">
+    </form>
 
 
 

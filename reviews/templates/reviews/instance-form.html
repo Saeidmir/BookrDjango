@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            {% if instance != None %}
+                Editing {{ model_type }} {{ instance.name }}
+            {% else %}
+                New Publisher
+            {% endif %}
+        {% endblock %}
+    </title>
+</head>
+<body>
+
+{% block content %}
+    <h2>
+    {% if related_instance == "Book" and related_model_type == "Book" %}
+    <p> For {{ related_model_type }} <em>{{ related_instance }}</em></p>
+
+    {% endif %}
+        {% if instance != None %}
+            Editing {{ model_type }} {{ instance.name }}
+        {% else %}
+            New Publisher
+        {% endif %}
+    </h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" type="submit"> {% if instance != None %} Save {% else %} Create
+        {% endif %} </button>
+    </form>
+{% endblock %}
+</body>
+</html>

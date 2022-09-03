@@ -9,10 +9,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    {% load static %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Source+Sans+Pro&display=swap">
+    <title>
 
-    <title>Book Review</title>
+        {% block title %} Bookr {% endblock %}</title>
     <style type="text/css">
         .navbar {
             min-height: 100px;
@@ -22,11 +26,21 @@
         .navbar-brand {
             font-size: 25px;
         }
+
+        .navbar-brand img {
+            height: 60px;
+        }
+
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
-    <a class="navbar-brand" href="/">Book Review</a>
+
+    <a class="navbar-brand" href="/">
+        {% block brand %}
+            <img src="{% static 'logo.png' %}" alt="">
+        {% endblock %}
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -40,21 +54,31 @@
                 <a class="nav-link" href="#">Logout</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form action="{% url "book_search" %}" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"
+                   value="{{ search_text }}" min_length="3">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
 </nav>
-{% block content %}
-    <h1>Welcome to Bookr!</h1>
-{% endblock %}
+<div class="container-fluid">
+    {% for message in messages %}
+        <div class="alert alert-{% if message.level_tag == 'error' %}danger{% else %}{{ message.level_tag }}{% endif %}"
+             role="alert">
+    {{ message }}
+        </div>
+    {% endfor %}
+
+    {% block content %}
+        <h1>Welcome to Bookr!</h1>
+    {% endblock %}
+</div>
 <!-- Copyright -->
 <footer class="page-footer font-small blue">
-    <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="https://www.packtpub.com"> Packt Publications</a>
-        <p>Website by: Packt Publications</p>
-        <p>Contact information: <a href="mailto:email@example.com">email@example.com</a></p>
+    <div class="footer-copyright text-center py-3">© 2022 Copyright:
+        <a href="https://www.packtpub.com"> S@EID</a>
+        <p>Website by: Mohammad Saeid Mirakhorlo</p>
+        <p>Contact information: <a href="mailto:saeid.mirakhorlo@gmail.com">saeid.mirakhorlo@gmail.com</a></p>
     </div>
 </footer>
 <!-- Copyright -->
