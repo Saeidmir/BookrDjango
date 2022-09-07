@@ -7,34 +7,47 @@
 </head>
 <body>
 {% block content %}
-    <h1> Book Details</h1>
-    <li class="list-group-item">
-        <span class="text-info">Title: </span> <span>{{ selected_book.title }}</span><br>
-        <span class="text-info">Publisher: </span> <span>{{ selected_book.publisher }}</span><br>
-        <span class="text-info">Publication Date: </span> <span>{{ selected_book.publication_date }}</span><br>
-        <span class="text-info">Overal Rating: </span> <span>{{ rating }}</span><br>
-        <br>
-    </li>
-    <hr>
-    <h3> Review Comments</h3>
-    <ul>
+<h1> Book Details</h1>
+<li class="list-group-item">
+
+    {% if selected_book.cover %}
+        <img src="{{ selected_book.cover.url }}" alt="the uploaded image">
+    {% endif %}<br>
+    <span class="text-info">Title: </span> <span>{{ selected_book.title }}</span><br>
+    <span class="text-info">Publisher: </span> <span>{{ selected_book.publisher }}</span><br>
+    <span class="text-info">Publication Date: </span> <span>{{ selected_book.publication_date }}</span><br>
+    {% if selected_book.sample %}
+        <span>Sample of the book: </span><a href="{{ selected_book.sample.url }}">Download</a><br>
+    {% endif %}
+    <span class="text-info">Overal Rating: </span> <span>{{ rating }}</span><br>
+    <br>
+</li>
+<hr>
+<h3> Review Comments</h3>
+<ul>
     {% for review in reviews %}
-           <li class="list-group-item">
-            <span class="text-info">Comment: </span> <span>{{ review.content }}</span><br>
-            <span class="text-info">Comment: </span> <span>{{ review.date_created }}</span><br>
-            <span class="text-info">Comment: </span> <span>{{ review.date_edited }}</span><br>
-            <span class="text-info">Comment: </span> <span>{{ review.rating }}</span><br>
-            <span class="text-info">Comment: </span> <span>{{ review.creator }}</span><br>
+        <li class="list-group-item">
+        <span class="text-info">Comment: </span> <span>{{ review.content }}</span><br>
+        <span class="text-info">Comment: </span> <span>{{ review.date_created }}</span><br>
+        <span class="text-info">Comment: </span> <span>{{ review.date_edited }}</span><br>
+        <span class="text-info">Comment: </span> <span>{{ review.rating }}</span><br>
+        <span class="text-info">Comment: </span> <span>{{ review.creator }}</span><br>
+
+        {% if user.is_staff or review.creator_id == user.id %}
             <a href="{% url "review_edit" selected_book.pk review.pk %}">Edit Review</a>
-        {% endfor %}
-
-    <form action="{% url "review_edit" selected_book.pk %}">
-        <input type="submit" class="btn btn-primary" value="Add Review">
-    </form>
+        {% endif %}
+    {% endfor %}<br>
 
 
+    {% if user.is_authenticated %}
+        {% if reviews.count == 0 %}
+            <h5>"Be the first one to write a review"</h5>
+        {% endif %}
+        <a class="btn btn-primary" href="{% url "review_edit" selected_book.pk %}">Add Review</a>
+        <a class="btn btn-primary" href="{% url "book_media" selected_book.pk %}">Media</a>
+    {% endif %}
 
-{% endblock %}
+    {% endblock %}
 </body>
 <br>
 </html>

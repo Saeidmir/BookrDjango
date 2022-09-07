@@ -27,7 +27,8 @@
             New Publisher
         {% endif %}
     </h2>
-    <form action="" method="post">
+    <form action="" method="post" {% if is_file_upload %} enctype="multipart/form-data" {% endif %}>
+
         {% csrf_token %}
         {{ form.as_p }}
         <button class="btn btn-primary" type="submit"> {% if instance != None %} Save {% else %} Create

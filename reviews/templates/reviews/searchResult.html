@@ -9,8 +9,8 @@
     </form>
     <h3>Search results for <em>{{ search_text }}</em></h3>
     <ul class="list-group"></ul>
-    {% for book in result %}
         <ul class="list-group"> Results
+    {% for book in result %}
             <li class="list-group-item">
                 <span class="text-info">Title: </span> <a href="{% url 'book_details' book.pk %}">{{ book }}</a>
                 <br/>
@@ -18,16 +18,9 @@
                 {% for contributor in book.contributor.all %}
                     {{ contributor.first_names }} {{ contributor.last_names }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
-
             </li>
             {% empty %}
             <li class="list-group-item">No results found.</li>
         </ul>
     {% endfor %}
-
-
-
-
-
-
 {% endblock %}
