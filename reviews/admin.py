@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 # Register your models here.
+from django.shortcuts import get_object_or_404
 
 from reviews.models import Review, Book, BookContributor, Contributor, Publisher
 
@@ -21,6 +22,8 @@ class BookAdmin(admin.ModelAdmin):
         return "{}-{}-{}-{}-{}".format(
             obj.isbn[0:3], obj.isbn[3:4], obj.isbn[4:6], obj.isbn[6:12], obj.isbn[12:13]
         )
+    def get_publisher(self,obj):
+        return  obj.publisher.name
 
 
 class ReviewAdmin(admin.ModelAdmin):

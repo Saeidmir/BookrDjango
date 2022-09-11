@@ -1,0 +1,6 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+    <p> You have logged out from admin panel.</p>
+    <p><a href="{% url 'admin:index' %}"> Login again</a></p> or <a href="{{ site_url }}">Go to the Home page</a>
+{% endblock %}

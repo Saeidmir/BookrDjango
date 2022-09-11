@@ -17,15 +17,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+
 from learningBookr.views import profile
 
 urlpatterns = [
     path('accounts/', include(('django.contrib.auth.urls', 'auth'), namespace='accounts')),
     path('accounts/profile/', profile, name='profile'),
     path('admin/', admin.site.urls),
-    # path('admin/', admin.site.urls),
-    path('', include('reviews.urls'))
+    path('', include('reviews.urls')),
+    path('filter-demo/', include('filter_demo.urls')),
     # path('book-search/<str:search>', reviews.views.search_render)
+    path('book_management/', include('book_management.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
